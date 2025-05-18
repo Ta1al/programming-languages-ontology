@@ -1,0 +1,688 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/hp/ontologies/2025/4/untitled-ontology-25#"
+     xml:base="http://www.semanticweb.org/hp/ontologies/2025/4/untitled-ontology-25"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:prog="http://programming.org/ontology#"
+     xmlns:untitled-ontology-25="http://www.semanticweb.org/hp/ontologies/2025/4/untitled-ontology-25#">
+    <owl:Ontology rdf:about="http://programming.org/"/>
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:Class rdf:about="prog:ApplicationDomain">
+        <rdfs:label>Application Domain</rdfs:label>
+        <rdfs:comment>A field where a programming language is commonly used.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="prog:Developer">
+        <rdfs:label>Developer</rdfs:label>
+        <rdfs:comment>An entity that creates a programming language.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="prog:ExecutionMethod">
+        <rdfs:label>Execution Method</rdfs:label>
+        <rdfs:comment>How a programming language is executed (e.g., compiled).</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="prog:Feature">
+        <rdfs:label>Feature</rdfs:label>
+        <rdfs:comment>A characteristic capability of a programming language.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="prog:Paradigm">
+        <rdfs:label>Paradigm</rdfs:label>
+        <rdfs:comment>A programming paradigm (e.g., object-oriented).</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="prog:ProgrammingLanguage">
+        <rdfs:label>Programming Language</rdfs:label>
+        <rdfs:comment>A formal language for writing computer instructions.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="prog:TypingDiscipline">
+        <rdfs:label>Typing Discipline</rdfs:label>
+        <rdfs:comment>A language's type system (e.g., static).</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="prog:Course">
+        <rdfs:label>Course</rdfs:label>
+        <rdfs:comment>An educational programming course.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="prog:Level">
+        <rdfs:label>Level</rdfs:label>
+        <rdfs:comment>Course difficulty level (e.g., Introductory).</rdfs:comment>
+    </owl:Class>
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:ObjectProperty rdf:about="prog:avoidsOverlapWith">
+        <rdfs:label>avoids overlap with</rdfs:label>
+        <rdfs:comment>Indicates that two courses intentionally avoid overlapping content.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:Course"/>
+        <rdfs:range rdf:resource="prog:Course"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:coversLanguage">
+        <rdfs:label>covers language</rdfs:label>
+        <rdfs:comment>Course teaches a specific language.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:Course"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+        <owl:inverseOf rdf:resource="prog:isCoveredInCourse"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isCoveredInCourse">
+        <rdfs:label>is covered in course</rdfs:label>
+        <rdfs:comment>Indicates that a programming language is taught in a course.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:coversLanguage"/>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:Course"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:focusesOnParadigm">
+        <rdfs:label>focuses on paradigm</rdfs:label>
+        <rdfs:comment>Course emphasizes a paradigm.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:Course"/>
+        <rdfs:range rdf:resource="prog:Paradigm"/>
+        <owl:inverseOf rdf:resource="prog:isFocusedOnByCourse"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isFocusedOnByCourse">
+        <rdfs:label>is focused on by course</rdfs:label>
+        <rdfs:comment>Indicates that a paradigm is the focus of a course.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:focusesOnParadigm"/>
+        <rdfs:domain rdf:resource="prog:Paradigm"/>
+        <rdfs:range rdf:resource="prog:Course"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:hasLevel">
+        <rdfs:label>has level</rdfs:label>
+        <rdfs:comment>Course difficulty level.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:Course"/>
+        <rdfs:range rdf:resource="prog:Level"/>
+        <owl:inverseOf rdf:resource="prog:isLevelOf"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isLevelOf">
+        <rdfs:label>is level of</rdfs:label>
+        <rdfs:comment>Indicates that a difficulty level is assigned to a course.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:hasLevel"/>
+        <rdfs:domain rdf:resource="prog:Level"/>
+        <rdfs:range rdf:resource="prog:Course"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:teachesFeature">
+        <rdfs:label>teaches feature</rdfs:label>
+        <rdfs:comment>Course teaches a language feature.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:Course"/>
+        <rdfs:range rdf:resource="prog:Feature"/>
+        <owl:inverseOf rdf:resource="prog:isTaughtInCourse"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isTaughtInCourse">
+        <rdfs:label>is taught in course</rdfs:label>
+        <rdfs:comment>Indicates that a feature is taught in a course.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:teachesFeature"/>
+        <rdfs:domain rdf:resource="prog:Feature"/>
+        <rdfs:range rdf:resource="prog:Course"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:hasApplicationDomain">
+        <rdfs:label>has application domain</rdfs:label>
+        <rdfs:comment>Language used in a domain.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:ApplicationDomain"/>
+        <owl:inverseOf rdf:resource="prog:isDomainOf"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isDomainOf">
+        <rdfs:label>is domain of</rdfs:label>
+        <rdfs:comment>Indicates that an application domain uses a programming language.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:hasApplicationDomain"/>
+        <rdfs:domain rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:developedBy">
+        <rdfs:label>developed by</rdfs:label>
+        <rdfs:comment>Creator of a language.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:Developer"/>
+        <owl:inverseOf rdf:resource="prog:develops"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:develops">
+        <rdfs:label>develops</rdfs:label>
+        <rdfs:comment>Indicates that a developer creates a programming language.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:developedBy"/>
+        <rdfs:domain rdf:resource="prog:Developer"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:hasExecution">
+        <rdfs:label>has execution</rdfs:label>
+        <rdfs:comment>Execution method of a language.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:ExecutionMethod"/>
+        <owl:inverseOf rdf:resource="prog:isExecutionMethodOf"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isExecutionMethodOf">
+        <rdfs:label>is execution method of</rdfs:label>
+        <rdfs:comment>Indicates that an execution method is used by a programming language.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:hasExecution"/>
+        <rdfs:domain rdf:resource="prog:ExecutionMethod"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:hasFeature">
+        <rdfs:label>has feature</rdfs:label>
+        <rdfs:comment>Language supports a feature.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:Feature"/>
+        <owl:inverseOf rdf:resource="prog:isFeatureOf"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isFeatureOf">
+        <rdfs:label>is feature of</rdfs:label>
+        <rdfs:comment>Indicates that a feature belongs to a programming language.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:hasFeature"/>
+        <rdfs:domain rdf:resource="prog:Feature"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:hasParadigm">
+        <rdfs:label>has paradigm</rdfs:label>
+        <rdfs:comment>Language follows a paradigm.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:Paradigm"/>
+        <owl:inverseOf rdf:resource="prog:isParadigmOf"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isParadigmOf">
+        <rdfs:label>is paradigm of</rdfs:label>
+        <rdfs:comment>Indicates that a paradigm is followed by a programming language.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:hasParadigm"/>
+        <rdfs:domain rdf:resource="prog:Paradigm"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:hasTyping">
+        <rdfs:label>has typing</rdfs:label>
+        <rdfs:comment>Typing discipline of a language.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:TypingDiscipline"/>
+        <owl:inverseOf rdf:resource="prog:isTypingOf"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isTypingOf">
+        <rdfs:label>is typing of</rdfs:label>
+        <rdfs:comment>Indicates that a typing discipline is used by a programming language.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:hasTyping"/>
+        <rdfs:domain rdf:resource="prog:TypingDiscipline"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:influencedBy">
+        <rdfs:label>influenced by</rdfs:label>
+        <rdfs:comment>Language influenced by another.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+        <owl:inverseOf rdf:resource="prog:influences"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:influences">
+        <rdfs:label>influences</rdfs:label>
+        <rdfs:comment>Language influences another.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+        <owl:inverseOf rdf:resource="prog:influencedBy"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:usedFor">
+        <rdfs:label>used for</rdfs:label>
+        <rdfs:comment>Language used for a domain.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="prog:ApplicationDomain"/>
+        <owl:inverseOf rdf:resource="prog:isUsedForBy"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="prog:isUsedForBy">
+        <rdfs:label>is used for by</rdfs:label>
+        <rdfs:comment>Indicates that an application domain is served by a programming language.</rdfs:comment>
+        <owl:inverseOf rdf:resource="prog:usedFor"/>
+        <rdfs:domain rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:range rdf:resource="prog:ProgrammingLanguage"/>
+    </owl:ObjectProperty>
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:DatatypeProperty rdf:about="prog:creditHours">
+        <rdfs:label>credit hours</rdfs:label>
+        <rdfs:comment>Credit hours for a course.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="prog:prerequisiteKnowledge">
+        <rdfs:label>prerequisite knowledge</rdfs:label>
+        <rdfs:comment>Prerequisites for a course.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="prog:semesterOffered">
+        <rdfs:label>semester offered</rdfs:label>
+        <rdfs:comment>Semester when a course is offered.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="prog:fileExtension">
+        <rdfs:label>file extension</rdfs:label>
+        <rdfs:comment>File extension for a language.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="prog:hasVersion">
+        <rdfs:label>has version</rdfs:label>
+        <rdfs:comment>Version of a language.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="prog:isOpenSource">
+        <rdfs:label>is open source</rdfs:label>
+        <rdfs:comment>Whether a language is open-source.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="prog:popularityIndex">
+        <rdfs:label>popularity index</rdfs:label>
+        <rdfs:comment>Popularity score of a language.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="prog:releaseYear">
+        <rdfs:label>release year</rdfs:label>
+        <rdfs:comment>Year a language was released.</rdfs:comment>
+        <rdfs:domain rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:NamedIndividual rdf:about="prog:Advanced">
+        <rdf:type rdf:resource="prog:Level"/>
+        <rdfs:label>Advanced</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:AdvancedWebDev">
+        <rdf:type rdf:resource="prog:Course"/>
+        <prog:hasLevel rdf:resource="prog:Intermediate"/>
+        <prog:teachesFeature rdf:resource="prog:LambdaSupport"/>
+        <prog:creditHours rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</prog:creditHours>
+        <prog:prerequisiteKnowledge rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HTML, CSS, JavaScript</prog:prerequisiteKnowledge>
+        <prog:semesterOffered rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fall 2025</prog:semesterOffered>
+        <rdfs:label>Advanced Web Development</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:CS101">
+        <rdf:type rdf:resource="prog:Course"/>
+        <prog:coversLanguage rdf:resource="prog:Python"/>
+        <prog:focusesOnParadigm rdf:resource="prog:ObjectOriented"/>
+        <prog:hasLevel rdf:resource="prog:Introductory"/>
+        <prog:creditHours rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</prog:creditHours>
+        <prog:prerequisiteKnowledge rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HTML, CSS</prog:prerequisiteKnowledge>
+        <prog:semesterOffered rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fall 2025</prog:semesterOffered>
+        <rdfs:label>CS101</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:CS102">
+        <rdf:type rdf:resource="prog:Course"/>
+        <prog:avoidsOverlapWith rdf:resource="prog:CS101"/>
+        <prog:coversLanguage rdf:resource="prog:Java"/>
+        <prog:focusesOnParadigm rdf:resource="prog:Functional"/>
+        <prog:hasLevel rdf:resource="prog:Advanced"/>
+        <prog:creditHours rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</prog:creditHours>
+        <prog:prerequisiteKnowledge rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OOP</prog:prerequisiteKnowledge>
+        <prog:semesterOffered rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fall 2025</prog:semesterOffered>
+        <rdfs:label>CS102</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Intermediate">
+        <rdf:type rdf:resource="prog:Level"/>
+        <rdfs:label>Intermediate</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Introductory">
+        <rdf:type rdf:resource="prog:Level"/>
+        <rdfs:label>Introductory</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:ABC">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:label>ABC</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:AI">
+        <rdf:type rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:label>Artificial Intelligence</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:BrendanEich">
+        <rdf:type rdf:resource="prog:Developer"/>
+        <rdfs:label>Brendan Eich</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Bytecode">
+        <rdf:type rdf:resource="prog:ExecutionMethod"/>
+        <rdfs:label>Bytecode</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:C">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:label>C</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Compiled">
+        <rdf:type rdf:resource="prog:ExecutionMethod"/>
+        <rdfs:label>Compiled</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:DataScience">
+        <rdf:type rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:label>Data Science</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Dynamic">
+        <rdf:type rdf:resource="prog:TypingDiscipline"/>
+        <rdfs:label>Dynamic</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:DynamicTyping">
+        <rdf:type rdf:resource="prog:Feature"/>
+        <rdfs:label>Dynamic Typing</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Functional">
+        <rdf:type rdf:resource="prog:Paradigm"/>
+        <rdfs:label>Functional</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:FunctionalProgrammingResearch">
+        <rdf:type rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:label>Functional Programming Research</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:GameDevelopment">
+        <rdf:type rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:label>Game Development</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:GarbageCollection">
+        <rdf:type rdf:resource="prog:Feature"/>
+        <rdfs:label>Garbage Collection</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Gradual">
+        <rdf:type rdf:resource="prog:TypingDiscipline"/>
+        <rdfs:label>Gradual</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:GuidoVanRossum">
+        <rdf:type rdf:resource="prog:Developer"/>
+        <rdfs:label>Guido van Rossum</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Haskell">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <prog:developedBy rdf:resource="prog:HaskellCommittee"/>
+        <prog:hasExecution rdf:resource="prog:Compiled"/>
+        <prog:hasFeature rdf:resource="prog:LambdaSupport"/>
+        <prog:hasFeature rdf:resource="prog:PatternMatching"/>
+        <prog:hasFeature rdf:resource="prog:StrongTyping"/>
+        <prog:hasParadigm rdf:resource="prog:Functional"/>
+        <prog:hasTyping rdf:resource="prog:Static"/>
+        <prog:influencedBy rdf:resource="prog:ML"/>
+        <prog:influencedBy rdf:resource="prog:Miranda"/>
+        <prog:usedFor rdf:resource="prog:FunctionalProgrammingResearch"/>
+        <prog:fileExtension rdf:datatype="http://www.w3.org/2001/XMLSchema#string">.hs</prog:fileExtension>
+        <prog:hasVersion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">9.6.1</prog:hasVersion>
+        <prog:isOpenSource rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</prog:isOpenSource>
+        <prog:popularityIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6.0</prog:popularityIndex>
+        <prog:releaseYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1990</prog:releaseYear>
+        <rdfs:label>Haskell</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:HaskellCommittee">
+        <rdf:type rdf:resource="prog:Developer"/>
+        <rdfs:label>Haskell Committee</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Interpreted">
+        <rdf:type rdf:resource="prog:ExecutionMethod"/>
+        <rdfs:label>Interpreted</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Java">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <prog:developedBy rdf:resource="prog:SunMicrosystems"/>
+        <prog:hasExecution rdf:resource="prog:Bytecode"/>
+        <prog:hasFeature rdf:resource="prog:GarbageCollection"/>
+        <prog:hasFeature rdf:resource="prog:StrongTyping"/>
+        <prog:hasParadigm rdf:resource="prog:ObjectOriented"/>
+        <prog:hasTyping rdf:resource="prog:Static"/>
+        <prog:influencedBy rdf:resource="prog:SmallTalk"/>
+        <prog:influencedBy rdf:resource="prog:C++"/>
+        <prog:usedFor rdf:resource="prog:GameDevelopment"/>
+        <prog:usedFor rdf:resource="prog:MobileApps"/>
+        <prog:usedFor rdf:resource="prog:WebDevelopment"/>
+        <prog:fileExtension rdf:datatype="http://www.w3.org/2001/XMLSchema#string">.java</prog:fileExtension>
+        <prog:hasVersion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21</prog:hasVersion>
+        <prog:isOpenSource rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</prog:isOpenSource>
+        <prog:popularityIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.5</prog:popularityIndex>
+        <prog:releaseYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1995</prog:releaseYear>
+        <rdfs:label>Java</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:JavaScript">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <prog:developedBy rdf:resource="prog:BrendanEich"/>
+        <prog:hasExecution rdf:resource="prog:Interpreted"/>
+        <prog:hasFeature rdf:resource="prog:DynamicTyping"/>
+        <prog:hasFeature rdf:resource="prog:GarbageCollection"/>
+        <prog:hasFeature rdf:resource="prog:LambdaSupport"/>
+        <prog:hasParadigm rdf:resource="prog:Functional"/>
+        <prog:hasParadigm rdf:resource="prog:MultiParadigm"/>
+        <prog:hasParadigm rdf:resource="prog:ObjectOriented"/>
+        <prog:hasTyping rdf:resource="prog:Dynamic"/>
+        <prog:influencedBy rdf:resource="prog:Java"/>
+        <prog:influencedBy rdf:resource="prog:Scheme"/>
+        <prog:usedFor rdf:resource="prog:WebDevelopment"/>
+        <prog:popularityIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9.0</prog:popularityIndex>
+        <prog:releaseYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1995</prog:releaseYear>
+        <rdfs:label>JavaScript</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:LambdaSupport">
+        <rdf:type rdf:resource="prog:Feature"/>
+        <rdfs:label>Lambda Support</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:LogicBased">
+        <rdf:type rdf:resource="prog:Paradigm"/>
+        <rdfs:label>Logic-Based</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:ML">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:label>ML</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:ManualMemory">
+        <rdf:type rdf:resource="prog:Feature"/>
+        <rdfs:label>Manual Memory Management</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:MemoryManagement">
+        <rdf:type rdf:resource="prog:Feature"/>
+        <rdfs:label>Memory Management</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Microsoft">
+        <rdf:type rdf:resource="prog:Developer"/>
+        <rdfs:label>Microsoft</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Miranda">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:label>Miranda</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:MobileApps">
+        <rdf:type rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:label>Mobile Apps</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:MultiParadigm">
+        <rdf:type rdf:resource="prog:Paradigm"/>
+        <rdfs:label>Multi-Paradigm</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:ObjectOriented">
+        <rdf:type rdf:resource="prog:Paradigm"/>
+        <rdfs:label>Object-Oriented</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Oracle">
+        <rdf:type rdf:resource="prog:Developer"/>
+        <rdfs:label>Oracle</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:PatternMatching">
+        <rdf:type rdf:resource="prog:Feature"/>
+        <rdfs:label>Pattern Matching</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Procedural">
+        <rdf:type rdf:resource="prog:Paradigm"/>
+        <rdfs:label>Procedural</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Python">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <prog:developedBy rdf:resource="prog:GuidoVanRossum"/>
+        <prog:hasExecution rdf:resource="prog:Interpreted"/>
+        <prog:hasFeature rdf:resource="prog:DynamicTyping"/>
+        <prog:hasFeature rdf:resource="prog:GarbageCollection"/>
+        <prog:hasFeature rdf:resource="prog:LambdaSupport"/>
+        <prog:hasParadigm rdf:resource="prog:Functional"/>
+        <prog:hasParadigm rdf:resource="prog:ObjectOriented"/>
+        <prog:hasParadigm rdf:resource="prog:Procedural"/>
+        <prog:hasTyping rdf:resource="prog:Dynamic"/>
+        <prog:influencedBy rdf:resource="prog:ABC"/>
+        <prog:influencedBy rdf:resource="prog:C"/>
+        <prog:usedFor rdf:resource="prog:AI"/>
+        <prog:usedFor rdf:resource="prog:DataScience"/>
+        <prog:usedFor rdf:resource="prog:WebDevelopment"/>
+        <prog:fileExtension rdf:datatype="http://www.w3.org/2001/XMLSchema#string">.py</prog:fileExtension>
+        <prog:hasVersion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3.12.1</prog:hasVersion>
+        <prog:isOpenSource rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</prog:isOpenSource>
+        <prog:popularityIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9.2</prog:popularityIndex>
+        <prog:releaseYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1991</prog:releaseYear>
+        <rdfs:label>Python</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Scheme">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:label>Scheme</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Simula">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:label>Simula</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:SmallTalk">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <rdfs:label>SmallTalk</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:Static">
+        <rdf:type rdf:resource="prog:TypingDiscipline"/>
+        <rdfs:label>Static</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:StrongTyping">
+        <rdf:type rdf:resource="prog:Feature"/>
+        <rdfs:label>Strong Typing</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:SunMicrosystems">
+        <rdf:type rdf:resource="prog:Developer"/>
+        <rdfs:label>Sun Microsystems</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:SystemsProgramming">
+        <rdf:type rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:label>Systems Programming</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:WebDevelopment">
+        <rdf:type rdf:resource="prog:ApplicationDomain"/>
+        <rdfs:label>Web Development</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="prog:C++">
+        <rdf:type rdf:resource="prog:ProgrammingLanguage"/>
+        <prog:developedBy rdf:resource="prog:Microsoft"/>
+        <prog:hasExecution rdf:resource="prog:Compiled"/>
+        <prog:hasFeature rdf:resource="prog:ManualMemory"/>
+        <prog:hasFeature rdf:resource="prog:StrongTyping"/>
+        <prog:hasParadigm rdf:resource="prog:ObjectOriented"/>
+        <prog:hasParadigm rdf:resource="prog:Procedural"/>
+        <prog:hasTyping rdf:resource="prog:Static"/>
+        <prog:influencedBy rdf:resource="prog:C"/>
+        <prog:influencedBy rdf:resource="prog:Simula"/>
+        <prog:usedFor rdf:resource="prog:GameDevelopment"/>
+        <prog:usedFor rdf:resource="prog:SystemsProgramming"/>
+        <prog:fileExtension rdf:datatype="http://www.w3.org/2001/XMLSchema#string">.cpp</prog:fileExtension>
+        <prog:hasVersion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C++20</prog:hasVersion>
+        <prog:isOpenSource rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</prog:isOpenSource>
+        <prog:popularityIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#float">7.1</prog:popularityIndex>
+        <prog:releaseYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1985</prog:releaseYear>
+        <rdfs:label>C++</rdfs:label>
+    </owl:NamedIndividual>
+</rdf:RDF>
